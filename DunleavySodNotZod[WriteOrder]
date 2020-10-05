@@ -1,0 +1,73 @@
+//AUTHOR: Sean Dunleavy
+//COURSE: CPT 187
+//PURPOSE: To write processed orders to a file to be used later for printing a final report.
+//STARTDATE: 9/29/20
+
+package edu.cpt187.dunleavy.exercise6;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.FileWriter;
+
+public class WriteOrder 
+{
+	//declare and initialize all non-CONSTANT class attributes
+	private boolean fileFoundFlag = false;
+	private String masterFileName = "";
+	private int recordCount = 0;
+	
+	//The WriteOrder non-default class constructor to ASSIGN value to masterFileName
+	public WriteOrder(String borrowedFileName)
+	{
+		masterFileName = borrowedFileName;
+	}//END of WriteOrder class constructor
+	
+	//SETTERS
+	//This method will append the write file
+	public void setWriteOrder(int borrowedItemID, String borrowedItemName, double borrowedPrice, int borrowedQuantity, double borrowedOrderCost)
+	{
+		try
+		{
+			//Instantiation statement for PrintWriter obj
+			PrintWriter filePW = new PrintWriter(new FileWriter(masterFileName,true));
+			
+			//printf statement to write values to file
+			filePW.printf("%n%d\t%s\t%f\t%d\t%f", borrowedItemID, borrowedItemName, borrowedPrice, borrowedQuantity, borrowedOrderCost);
+			
+			//increment recordCount
+			recordCount++;
+			
+			//set flag to found
+			fileFoundFlag = true;
+			
+			//close the PrintWriter/File
+			filePW.close();
+			
+		}//END of try
+		catch(IOException ex)
+		{
+			//set fileFoundFlag to false
+			fileFoundFlag = false;
+		}//END of catch		
+	}//END of setWriteOrder
+	
+	//GETTERS
+	//This method will RETURN fileFoundFlag
+	public boolean getFileFoundFlag()
+	{
+		return fileFoundFlag;
+	}//END of getFileFoundFlag
+	
+	//This method will RETURN masterFileName
+	public String getFileName()
+	{
+		return masterFileName;
+	}//END of getFileName
+	
+	//This method will RETURN recordCount
+	public int getRecordCount()
+	{
+		return recordCount;
+	}//END of getRecordCount	
+}//END of WriteOrder class
+
